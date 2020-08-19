@@ -11,9 +11,10 @@ public class PowerUpManager : MonoBehaviour
 
     public Stack powerUps;
     public PowerUpModel activePowerUp; // power up seleccionado de pila y activo hasta aplicar en arma o muro
+    private Vector3 powerUpActivePosition;
     public List<Vector3> stackPositions;
 
-    public enum TypeOfPowerUp { 
+    public enum PowerUpType { 
         BulletBox = 1,
         RepairKit = 2,
         FirstAidKit = 3,
@@ -22,7 +23,8 @@ public class PowerUpManager : MonoBehaviour
 
     void Awake() {
         instance = this;  
-        powerUps = new Stack();  
+        powerUps = new Stack();
+        powerUpActivePosition = new Vector3(-425, 250, -1);
     }
 
     /* Almacena el power up en la pila */
@@ -50,24 +52,35 @@ public class PowerUpManager : MonoBehaviour
     {
         var powerUp = powerUps.Pop() as GameObject;
         activePowerUp = powerUp.GetComponent<PowerUpModel>();
+        activePowerUp.transform.localPosition = powerUpActivePosition;
     }
 
     /* Aplica el power up activo al arma o pared seleccionados */
     public void ApplyPowerUp(GameObject item) //recibe un modelo de arma o pared y según el power up activo aplica balas o vida
     {
-        if (activePowerUp.GetComponent<PowerUpModel>().Id == (int)TypeOfPowerUp.BulletBox && item.GetComponent<WeaponModel>().Type == 1)
+        if (activePowerUp.GetComponent<PowerUpModel>().Id == (int)PowerUpType.BulletBox && item.GetComponent<WeaponModel>().Type == 1)
         {
             item.GetComponent<WeaponModel>().SetBullet(activePowerUp.GetComponent<PowerUpModel>().Value);
         }
-        else if (activePowerUp.GetComponent<PowerUpModel>().Id == (int)TypeOfPowerUp.RepairKit || activePowerUp.GetComponent<PowerUpModel>().Id == (int)TypeOfPowerUp.FirstAidKit)
+        else if (activePowerUp.GetComponent<PowerUpModel>().Id == (int)PowerUpType.RepairKit || activePowerUp.GetComponent<PowerUpModel>().Id == (int)PowerUpType.FirstAidKit)
         {
             item.GetComponent<WeaponModel>().SetLife(activePowerUp.GetComponent<PowerUpModel>().Value);
         }
-        else if (activePowerUp.GetComponent<PowerUpModel>().Id == (int)TypeOfPowerUp.Nuke)
+        else if (activePowerUp.GetComponent<PowerUpModel>().Id == (int)PowerUpType.Nuke)
         { 
             // nuke everything
         }
 
+        Destroy(activePowerUp.gameObject);
+        activePowerUp = null;
+
+        UpdateEnableStateOfStackElements();
+        Debug.Log($"PowerUps acumulados: {powerUps.Count}");
+    }
+
+    /* Si hay un power up activado destruye el power up sin aplicarlo a un objeto  */
+    public void DeleteActivePowerUp()
+    {
         Destroy(activePowerUp.gameObject);
         activePowerUp = null;
 
@@ -86,7 +99,11 @@ public class PowerUpManager : MonoBehaviour
     {
         foreach (GameObject element in powerUps)
         {
-            if (element != powerUps.Peek() as GameObject)
+            if (activePowerUp != null)
+            {
+                element.GetComponent<Button>().interactable = false;
+            }
+            else if (activePowerUp == null && element != powerUps.Peek() as GameObject)
             {
                 element.GetComponent<Button>().interactable = false;
             }
