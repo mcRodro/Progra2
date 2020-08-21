@@ -807,14 +807,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activePowerUp: {fileID: 0}
-  stackPositions:
-  - {x: -550, y: -250, z: -1}
-  - {x: -550, y: -165, z: -1}
-  - {x: -550, y: -80, z: -1}
-  - {x: -550, y: 5, z: -1}
-  - {x: -550, y: 90, z: -1}
-  - {x: -550, y: 175, z: -1}
-  - {x: -550, y: 260, z: -1}
+  stackPositions: []
 --- !u!1 &928221783
 GameObject:
   m_ObjectHideFlags: 0

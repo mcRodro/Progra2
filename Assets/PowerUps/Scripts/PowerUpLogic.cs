@@ -26,7 +26,6 @@ public class PowerUpLogic : MonoBehaviour
         {
             //guardarlo en la pila
             PowerUpManager.instance.StackPowerUp(this.gameObject);
-            //actualizar posición en pila
         }
         else // entonces aplica power up a objeto
         {
