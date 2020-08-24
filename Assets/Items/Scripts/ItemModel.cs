@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class ItemModel : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int Id;
+    public string Name;
+    public Sprite Sprite;
+    public bool InQueue;
+    public bool IsWeapon;
+    public bool IsDefense;
 }

@@ -11,9 +11,8 @@ public class PowerUpRespowner : MonoBehaviour
 
     public List<GameObject> prefabs;
     public Transform parent;
-    public float timePerRespown;
-    private float timer;
 
+    private float timer;
     public bool inGame;
 
     

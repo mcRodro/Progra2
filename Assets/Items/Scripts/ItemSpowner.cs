@@ -4,15 +4,47 @@ using UnityEngine;
 
 public class ItemSpowner : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private const int RESPOWN_TIME = 2;
+
+    public List<GameObject> prefabs;
+    public Transform parent;
+
+    private Vector3 SpownPosition;
+    private float timer;
+    public bool inGame;
+
     void Start()
     {
-        
+        SpownPosition = new Vector3(550, -400, -1);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (inGame)
+        {
+            if (timer >= RESPOWN_TIME)
+            {
+                Respown();
+                Debug.LogWarning("Respown Item");
+                timer = 0;
+            }
+            else
+            {
+                timer += Time.deltaTime;
+            }
+        }
+    }
+
+    private void Respown()
+    {
+        //instanciar objeto
+        var powerUp = Instantiate(prefabs[Random.Range(0, prefabs.Count)], parent);
+
+        //inicializarlo
+        powerUp.transform.localPosition = SpownPosition;
+        powerUp.name = powerUp.GetComponent<ItemModel>().Name;
+
+        //Agregar temporalmente a la cola, TODO: animación de aparición
+        ItemManager.instance.EnqueueItem(powerUp);
     }
 }

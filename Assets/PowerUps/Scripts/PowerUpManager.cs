@@ -27,7 +27,6 @@ public class PowerUpManager : MonoBehaviour
         powerUps = new Stack();
         powerUpActivePosition = new Vector3(-425, 250, -1);
 
-        float yPosition = -250;
         for (int i = 0; i < STACK_LIMIT; i++)
         {
             stackPositions.Add(new Vector3(-550, stackPositions.Count == 0 ? -250 : stackPositions[i-1].y + STACK_POSITION_DIFERENCESS, -1));
@@ -39,7 +38,7 @@ public class PowerUpManager : MonoBehaviour
     {
         if (powerUps.Count < STACK_LIMIT)
         {
-            UpdateInteractionStateOfStackElements(false);
+            UpdateInteractableState(false);
             if (PowerUpIsActive())
             {
                 powerUp.GetComponent<Button>().interactable = false;
@@ -85,7 +84,7 @@ public class PowerUpManager : MonoBehaviour
         Destroy(activePowerUp.gameObject);
         activePowerUp = null;
 
-        UpdateInteractionStateOfStackElements(true);
+        UpdateInteractableState(true);
         Debug.Log($"PowerUps acumulados: {powerUps.Count}");
     }
 
@@ -97,7 +96,7 @@ public class PowerUpManager : MonoBehaviour
             Destroy(activePowerUp.gameObject);
             activePowerUp = null;
 
-            UpdateInteractionStateOfStackElements(true);
+            UpdateInteractableState(true);
             Debug.Log($"PowerUps acumulados: {powerUps.Count}");
         }
     }
@@ -114,7 +113,7 @@ public class PowerUpManager : MonoBehaviour
     }
 
     /* Recorre la pila desabilitando botones para dejar solo el último ingresado como activo */
-    private void UpdateInteractionStateOfStackElements(bool interactable)
+    private void UpdateInteractableState(bool interactable)
     {
         if (powerUps.Count != 0)
         {
