@@ -16,7 +16,7 @@ public class PowerUpLogic : MonoBehaviour
     {
         if (!this.GetComponent<PowerUpModel>().inStack)
         {
-            this.transform.Translate(Vector3.down / 5);
+            this.transform.Translate(Vector3.down * 0.004f);
         }
     }
 

@@ -9,30 +9,30 @@ public class WeaponModel : MonoBehaviour
 
     public int Id;
     public string Name;
-    public int Type; //tipo de objeto: 1-arma, 2-pared
     public int Life;
     public int Bullets;
 
-    public enum ObjectType
+    public void Constructor(int id, string name)
     {
-        Weapon = 1,
-        Wall = 2
-    };
+        this.Id = id;
+        this.Name = name;
+        switch (id)
+        {
+            case 1: SetBullet(200); SetLife(100); break;
+            case 2: SetBullet(500); SetLife(200); break;
+            case 3: SetBullet(1000); SetLife(100); break;
+        }
+    }
 
     public void SetLife(int life)
     {
         this.Life += life;
-        Debug.Log($"Vida: {this.Life}");
+        Debug.Log($"Id: {this.Id} -> Vida: {this.Life}");
     }
 
     public void SetBullet(int bullets)
     {
         this.Bullets += bullets;
-        Debug.Log($"Balas: {this.Bullets}");
-    }
-
-    public void PowerUpSelection()
-    {
-        PowerUpManager.instance.ApplyPowerUp(this.gameObject);
+        Debug.Log($"Id: {this.Id} -> Balas: {this.Bullets}");
     }
 }

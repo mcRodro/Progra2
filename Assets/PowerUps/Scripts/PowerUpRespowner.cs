@@ -5,9 +5,9 @@ using UnityEngine;
 public class PowerUpRespowner : MonoBehaviour
 {
     private const int RESPOWN_LEFT_LIMIT = -300;
-    private const int RESPOWN_RIGHT_LIMIT = 500;
+    private const int RESPOWN_RIGHT_LIMIT = 300;
     private const int RESPOWN_HIGTH = 500;
-    private const int RESPOWN_TIME = 2;
+    private const int RESPOWN_TIME = 10;
 
     public List<GameObject> prefabs;
     public Transform parent;
@@ -23,7 +23,7 @@ public class PowerUpRespowner : MonoBehaviour
             if(timer >= RESPOWN_TIME)
             {
                 Respown();
-                Debug.LogWarning("Respown Power up");
+                //Debug.LogWarning("Respown Power up");
                 timer = 0;
             }
             else

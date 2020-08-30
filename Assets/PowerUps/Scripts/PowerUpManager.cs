@@ -49,7 +49,7 @@ public class PowerUpManager : MonoBehaviour
             powerUp.GetComponent<PowerUpModel>().inStack = true;
             powerUp.transform.localPosition = GetStackPosition();
 
-            Debug.Log($"PowerUps acumulados: {powerUps.Count}");
+            //Debug.Log($"PowerUps acumulados: {powerUps.Count}");
         }
         else
         {
@@ -65,29 +65,6 @@ public class PowerUpManager : MonoBehaviour
         activePowerUp.transform.localPosition = powerUpActivePosition;
     }
 
-    /* Aplica el power up activo al arma o pared seleccionados */
-    public void ApplyPowerUp(GameObject item) //recibe un modelo de arma o pared y según el power up activo aplica balas o vida
-    {
-        if (activePowerUp.GetComponent<PowerUpModel>().Id == (int)PowerUpType.BulletBox && item.GetComponent<WeaponModel>().Type == 1)
-        {
-            item.GetComponent<WeaponModel>().SetBullet(activePowerUp.GetComponent<PowerUpModel>().Value);
-        }
-        else if (activePowerUp.GetComponent<PowerUpModel>().Id == (int)PowerUpType.RepairKit || activePowerUp.GetComponent<PowerUpModel>().Id == (int)PowerUpType.FirstAidKit)
-        {
-            item.GetComponent<WeaponModel>().SetLife(activePowerUp.GetComponent<PowerUpModel>().Value);
-        }
-        else if (activePowerUp.GetComponent<PowerUpModel>().Id == (int)PowerUpType.Nuke)
-        {
-            // nuke everything
-        }
-
-        Destroy(activePowerUp.gameObject);
-        activePowerUp = null;
-
-        UpdateInteractableState(true);
-        Debug.Log($"PowerUps acumulados: {powerUps.Count}");
-    }
-
     /* Si hay un power up activado destruye el power up sin aplicarlo a un objeto  */
     public void DeleteActivePowerUp()
     {
@@ -97,7 +74,7 @@ public class PowerUpManager : MonoBehaviour
             activePowerUp = null;
 
             UpdateInteractableState(true);
-            Debug.Log($"PowerUps acumulados: {powerUps.Count}");
+            //Debug.Log($"PowerUps acumulados: {powerUps.Count}");
         }
     }
 

@@ -48,7 +48,7 @@ public class ItemManager : MonoBehaviour
                 UpdateInteractableState(true);
             }
 
-            Debug.Log($"Items acumulados: {items.Count}");
+            //Debug.Log($"Items acumulados: {items.Count}");
         }
         else
         {
@@ -75,7 +75,7 @@ public class ItemManager : MonoBehaviour
             activeItem = null;
 
             UpdateInteractableState(true);
-            Debug.Log($"Items acumulados: {items.Count}");
+            //Debug.Log($"Items acumulados: {items.Count}");
         }
     }
 

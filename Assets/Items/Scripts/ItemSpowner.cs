@@ -25,7 +25,7 @@ public class ItemSpowner : MonoBehaviour
             if (timer >= RESPOWN_TIME)
             {
                 Respown();
-                Debug.LogWarning("Respown Item");
+                //Debug.LogWarning("Respown Item");
                 timer = 0;
             }
             else
