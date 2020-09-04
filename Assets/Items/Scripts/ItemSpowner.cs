@@ -38,13 +38,13 @@ public class ItemSpowner : MonoBehaviour
     private void Respown()
     {
         //instanciar objeto
-        var powerUp = Instantiate(prefabs[Random.Range(0, prefabs.Count)], parent);
+        var tempItem = Instantiate(prefabs[Random.Range(0, prefabs.Count)], parent);
 
         //inicializarlo
-        powerUp.transform.localPosition = SpownPosition;
-        powerUp.name = powerUp.GetComponent<ItemModel>().Name;
+        tempItem.transform.localPosition = SpownPosition;
+        tempItem.name = tempItem.GetComponent<ItemModel>().Name;
 
         //Agregar temporalmente a la cola, TODO: animación de aparición
-        ItemManager.instance.EnqueueItem(powerUp);
+        ItemManager.instance.EnqueueItem(tempItem);
     }
 }
