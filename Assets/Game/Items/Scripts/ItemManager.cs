@@ -26,10 +26,10 @@ public class ItemManager : MonoBehaviour
         items.InitializeQueue();
         itemsCount = 0;
 
-        itemActivePosition = new Vector3(425, 250, -1);
+        itemActivePosition = new Vector3(425, 265, -1);
         for (int i = 0; i < QUEUE_LIMIT; i++)
         {
-            queuePositions.Add(new Vector3(550, queuePositions.Count == 0 ? 260 : queuePositions[i - 1].y - QUEUE_POSITION_DIFERENCESS, -1));
+            queuePositions.Add(new Vector3(565, queuePositions.Count == 0 ? 260 : queuePositions[i - 1].y - QUEUE_POSITION_DIFERENCESS, -1));
         }
     }
 
