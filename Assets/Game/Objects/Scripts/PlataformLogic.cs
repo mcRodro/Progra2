@@ -56,7 +56,7 @@ public class PlataformLogic : MonoBehaviour
 
     private void SpawnItem()
     {
-        if (ItemManager.instance.activeItem != null)
+        if (ItemManager.instance.activeItem != null && !item)
         {
             var tempItem = ItemManager.instance.activeItem.gameObject;
             Debug.Log($"Weapon Id: {tempItem.GetComponent<ItemModel>().Id}, name: {tempItem.GetComponent<ItemModel>().Name}");
@@ -66,7 +66,12 @@ public class PlataformLogic : MonoBehaviour
                 item = Instantiate(prefabs[tempItem.GetComponent<ItemModel>().Id - 1], itemsHolder);
                 item.transform.position = this.transform.position;
                 item.transform.eulerAngles = this.transform.eulerAngles;
-                item.AddComponent<WeaponModel>().Constructor(tempItem.GetComponent<ItemModel>().Id, tempItem.GetComponent<ItemModel>().Name);
+                var uiData = this.gameObject.GetComponent<PlataformUIData>();
+                item.AddComponent<WeaponModel>().Constructor(
+                    tempItem.GetComponent<ItemModel>().Id, 
+                    tempItem.GetComponent<ItemModel>().Name,  
+                    uiData
+                    );
                 ItemManager.instance.DeleteActiveItem();
             }
             else if (isDefenseBase && tempItem.GetComponent<ItemModel>().IsDefense)
@@ -89,10 +94,10 @@ public class PlataformLogic : MonoBehaviour
             switch (powerup.GetComponent<PowerUpModel>().Id) 
             {
                 case (int)PowerUpManager.PowerUpType.BulletBox:
-                    item.GetComponent<WeaponModel>().SetBullet(powerup.GetComponent<PowerUpModel>().Value);
+                    item.GetComponent<WeaponModel>().AddBullet(powerup.GetComponent<PowerUpModel>().Value);
                     break;
                 case (int)PowerUpManager.PowerUpType.RepairKit:
-                    item.GetComponent<WeaponModel>().SetLife(powerup.GetComponent<PowerUpModel>().Value);
+                    item.GetComponent<WeaponModel>().AddLife(powerup.GetComponent<PowerUpModel>().Value);
                     break;
                 case (int)PowerUpManager.PowerUpType.FirstAidKit:
                     item.GetComponent<DefenseModel>().SetLife(powerup.GetComponent<PowerUpModel>().Value);
