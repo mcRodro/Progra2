@@ -148,7 +148,7 @@ MonoBehaviour:
   Id: 2
   Name: Repair Kit
   Sprite: {fileID: 21300000, guid: 264728517efc4594a9b6ddbb967caec6, type: 3}
-  Value: 100
+  Value: 200
   inStack: 0
 --- !u!114 &8379789056030552217
 MonoBehaviour:

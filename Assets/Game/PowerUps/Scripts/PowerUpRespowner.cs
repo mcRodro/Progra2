@@ -7,7 +7,7 @@ public class PowerUpRespowner : MonoBehaviour
     private const int RESPOWN_LEFT_LIMIT = -300;
     private const int RESPOWN_RIGHT_LIMIT = 300;
     private const int RESPOWN_HIGTH = 500;
-    private const int RESPOWN_TIME = 10;
+    private const int RESPOWN_TIME = 3;
 
     public List<GameObject> prefabs;
     public Transform parent;

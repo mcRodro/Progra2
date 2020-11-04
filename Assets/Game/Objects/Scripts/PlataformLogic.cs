@@ -6,6 +6,7 @@ public class PlataformLogic : MonoBehaviour
 {
     public GameObject item;
     public List<GameObject> prefabs;
+    public GameObject prefabExplotion;
 
     public Transform itemsHolder;
 
@@ -70,7 +71,8 @@ public class PlataformLogic : MonoBehaviour
                 item.AddComponent<WeaponModel>().Constructor(
                     tempItem.GetComponent<ItemModel>().Id, 
                     tempItem.GetComponent<ItemModel>().Name,  
-                    uiData
+                    uiData,
+                    prefabExplotion
                     );
                 ItemManager.instance.DeleteActiveItem();
             }
@@ -94,7 +96,7 @@ public class PlataformLogic : MonoBehaviour
             switch (powerup.GetComponent<PowerUpModel>().Id) 
             {
                 case (int)PowerUpManager.PowerUpType.BulletBox:
-                    item.GetComponent<WeaponModel>().AddBullet(powerup.GetComponent<PowerUpModel>().Value);
+                    item.GetComponent<WeaponModel>().AddBullet(AddBulletsByWeaponId());
                     break;
                 case (int)PowerUpManager.PowerUpType.RepairKit:
                     item.GetComponent<WeaponModel>().AddLife(powerup.GetComponent<PowerUpModel>().Value);
@@ -109,5 +111,17 @@ public class PlataformLogic : MonoBehaviour
 
             PowerUpManager.instance.DeleteActivePowerUp();
         }
+    }
+
+    private int AddBulletsByWeaponId()
+    {
+        switch (item.GetComponent<WeaponModel>().Id)
+        {
+            case 1: return 100;
+            case 2: return 150;
+            case 3: return 300;
+        }
+
+        return 0;
     }
 }

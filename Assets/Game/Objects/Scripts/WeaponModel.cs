@@ -4,31 +4,43 @@ using UnityEngine;
 
 public class WeaponModel : MonoBehaviour
 {
-    private const int MAX_LIFE = 500;
-    private const int MAX_BULLETS = 300;
+    private const int MAX_TURRET_LIFE = 300;
+    private const int MAX_SHOTGUN_LIFE = 750;
+    private const int MAX_FLAMETHROWER_LIFE = 600;
+
+    private const int MAX_TURRET_BULLETS = 200;
+    private const int MAX_SHOTGUN_BULLETS = 150;
+    private const int MAX_FLAMETHROWER_BULLETS = 600;
 
     public int Id;
     public string Name;
     public float Life;
     public int Bullets;
+    private int MaxLife;
+    private int MaxBullets;
     public PlataformUIData uiData;
+    public GameObject prefabExplotion;
 
-    public void Constructor(int id, string name, PlataformUIData uiData)
+    public void Constructor(int id, string name, PlataformUIData uiData, GameObject prefabExplotion)
     {
         this.Id = id;
         this.Name = name;
+
+        this.prefabExplotion = prefabExplotion;
 
         this.uiData = uiData;
         uiData.SetViewActive(true);
 
         switch (id)
         {
-            case 1: AddBullet(MAX_BULLETS); AddLife(MAX_LIFE); break;
-            case 2: AddBullet(500); AddLife(200); break;
-            case 3: AddBullet(1000); AddLife(100); break;
+            case 1: MaxBullets = MAX_TURRET_BULLETS; MaxLife = MAX_TURRET_LIFE; break;
+            case 2: MaxBullets = MAX_SHOTGUN_BULLETS; MaxLife = MAX_SHOTGUN_LIFE; break;
+            case 3: MaxBullets = MAX_FLAMETHROWER_BULLETS; MaxLife = MAX_FLAMETHROWER_LIFE; break;
         }
-        
-        uiData.UpdateInformation(this.Life, this.Bullets, MAX_LIFE, MAX_BULLETS);
+
+        AddBullet(MaxBullets); 
+        AddLife(MaxLife);
+        uiData.UpdateInformation(this.Life, this.Bullets, MaxLife, MaxBullets);
     }
 
     void Update()
@@ -42,9 +54,9 @@ public class WeaponModel : MonoBehaviour
     public void AddLife(int life)
     {
         this.Life += life;
-        this.Life = this.Life >= MAX_LIFE ? MAX_LIFE : this.Life;
+        this.Life = this.Life >= MaxLife ? MaxLife : this.Life;
 
-        uiData.UpdateInformation(this.Life, this.Bullets, MAX_LIFE, MAX_BULLETS);
+        uiData.UpdateInformation(this.Life, this.Bullets, MaxLife, MaxBullets);
         Debug.Log($"Id: {this.Id} -> Vida: {this.Life}");
     }
     
@@ -56,16 +68,16 @@ public class WeaponModel : MonoBehaviour
             DeathAction();
         }
 
-        uiData.UpdateInformation(this.Life, this.Bullets, MAX_LIFE, MAX_BULLETS);
+        uiData.UpdateInformation(this.Life, this.Bullets, MaxLife, MaxBullets);
         Debug.Log($"Id: {this.Id} -> Vida: {this.Life}");
     }
 
     public void AddBullet(int bullets)
     {
         this.Bullets += bullets;
-        this.Bullets = this.Bullets >= MAX_BULLETS ? MAX_BULLETS : this.Bullets;
+        this.Bullets = this.Bullets >= MaxBullets ? MaxBullets: this.Bullets;
 
-        uiData.UpdateInformation(this.Life, this.Bullets, MAX_LIFE, MAX_BULLETS);
+        uiData.UpdateInformation(this.Life, this.Bullets, MaxLife, MaxBullets);
         Debug.Log($"Id: {this.Id} -> Balas: {this.Bullets}");
     }
 
@@ -74,7 +86,7 @@ public class WeaponModel : MonoBehaviour
         this.Bullets -= bullets;
         this.Bullets = this.Bullets <= 0 ? 0 : this.Bullets;
 
-        uiData.UpdateInformation(this.Life, this.Bullets, MAX_LIFE, MAX_BULLETS);
+        uiData.UpdateInformation(this.Life, this.Bullets, MaxLife, MaxBullets);
         Debug.Log($"Id: {this.Id} -> Balas: {this.Bullets}");
     }
 
@@ -94,8 +106,11 @@ public class WeaponModel : MonoBehaviour
         {
             uiData.SetViewActive(false);
             Debug.Log($"Id: {this.Id} -> Dead");
+            
+            var explotion = Instantiate(prefabExplotion);
+            explotion.transform.position = this.transform.position;
+            
             Destroy(this.gameObject);
-            // see to free base ocupation
         }
     }
 }

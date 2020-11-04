@@ -148,7 +148,7 @@ MonoBehaviour:
   Id: 1
   Name: Bullet Box
   Sprite: {fileID: 21300000, guid: f14e30d29c1ceb449838b515fc9ac99a, type: 3}
-  Value: 100
+  Value: 150
   inStack: 0
 --- !u!114 &2664237204746097647
 MonoBehaviour:
