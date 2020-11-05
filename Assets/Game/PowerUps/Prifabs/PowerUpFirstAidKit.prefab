@@ -148,7 +148,7 @@ MonoBehaviour:
   Id: 3
   Name: First Aid Kit
   Sprite: {fileID: 21300000, guid: 5c2101fbeeb5a604cb8dd1ac091d0438, type: 3}
-  Value: 100
+  Value: 250
   inStack: 0
 --- !u!114 &2202116019406323612
 MonoBehaviour:

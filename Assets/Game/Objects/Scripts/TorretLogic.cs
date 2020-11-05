@@ -12,6 +12,7 @@ public class TorretLogic : MonoBehaviour
     public bool inAtackRange;
 
     private WeaponModel model;
+    private Transform bulletsHolder;
 
     private float bulletRespownTimer;
     private float weaponHeadAnimationTimer;
@@ -24,13 +25,12 @@ public class TorretLogic : MonoBehaviour
     {
         model = this.GetComponent<WeaponModel>();
         weaponHeadAnimationSpeed = .75f;
+        bulletsHolder = GameObject.FindGameObjectWithTag("BulletGroup").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //CheckEnemyDistance();
-
         if (inAtackRange && model.HasBullets()) 
         {
             AtackAnimation();
@@ -66,7 +66,7 @@ public class TorretLogic : MonoBehaviour
         if (bulletRespownTimer >= .1f)
         {
             bulletRespownTimer = 0;
-            var bullet = Instantiate(Bullet);
+            var bullet = Instantiate(Bullet, bulletsHolder);
             bullet.transform.position = weaponHead.transform.position + new Vector3(0, .75f, 0);
             bullet.transform.eulerAngles = weaponHead.transform.eulerAngles;
             model.RemoveBullet(1);
@@ -83,7 +83,7 @@ public class TorretLogic : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("Enemy collision enter");
+            //Debug.Log("Enemy collision enter");
             enemies.Add(collision.gameObject);
             inAtackRange = true;
             //take damage - promedio de enemies
@@ -94,7 +94,7 @@ public class TorretLogic : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("Enemy collision exit");
+            //Debug.Log("Enemy collision exit");
             enemies.Remove(collision.gameObject);
             if (enemies.Count == 0)
             {

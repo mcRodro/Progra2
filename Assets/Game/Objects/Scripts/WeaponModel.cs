@@ -57,7 +57,7 @@ public class WeaponModel : MonoBehaviour
         this.Life = this.Life >= MaxLife ? MaxLife : this.Life;
 
         uiData.UpdateInformation(this.Life, this.Bullets, MaxLife, MaxBullets);
-        Debug.Log($"Id: {this.Id} -> Vida: {this.Life}");
+        //Debug.Log($"Id: {this.Id} -> Vida: {this.Life}");
     }
     
     public void TakeDamage(float life)
@@ -69,7 +69,7 @@ public class WeaponModel : MonoBehaviour
         }
 
         uiData.UpdateInformation(this.Life, this.Bullets, MaxLife, MaxBullets);
-        Debug.Log($"Id: {this.Id} -> Vida: {this.Life}");
+        //Debug.Log($"Id: {this.Id} -> Vida: {this.Life}");
     }
 
     public void AddBullet(int bullets)
@@ -78,7 +78,7 @@ public class WeaponModel : MonoBehaviour
         this.Bullets = this.Bullets >= MaxBullets ? MaxBullets: this.Bullets;
 
         uiData.UpdateInformation(this.Life, this.Bullets, MaxLife, MaxBullets);
-        Debug.Log($"Id: {this.Id} -> Balas: {this.Bullets}");
+        //Debug.Log($"Id: {this.Id} -> Balas: {this.Bullets}");
     }
 
     public void RemoveBullet(int bullets)
@@ -87,7 +87,7 @@ public class WeaponModel : MonoBehaviour
         this.Bullets = this.Bullets <= 0 ? 0 : this.Bullets;
 
         uiData.UpdateInformation(this.Life, this.Bullets, MaxLife, MaxBullets);
-        Debug.Log($"Id: {this.Id} -> Balas: {this.Bullets}");
+        //Debug.Log($"Id: {this.Id} -> Balas: {this.Bullets}");
     }
 
     public bool HasBullets()
@@ -105,7 +105,7 @@ public class WeaponModel : MonoBehaviour
         if (Life <= 0)
         {
             uiData.SetViewActive(false);
-            Debug.Log($"Id: {this.Id} -> Dead");
+            //Debug.Log($"Id: {this.Id} -> Dead");
             
             var explotion = Instantiate(prefabExplotion);
             explotion.transform.position = this.transform.position;

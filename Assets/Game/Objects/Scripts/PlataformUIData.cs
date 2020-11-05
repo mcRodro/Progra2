@@ -25,6 +25,9 @@ public class PlataformUIData : MonoBehaviour
         float auxBullets = maxBullets;
 
         this.lifeBar.fillAmount = life / auxLife;
-        this.bulletsBar.fillAmount = bullets / auxBullets;
+        if (this.bulletsBar)
+        {
+            this.bulletsBar.fillAmount = bullets / auxBullets;
+        }
     }
 }

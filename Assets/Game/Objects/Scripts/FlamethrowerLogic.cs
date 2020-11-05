@@ -74,7 +74,7 @@ public class FlamethrowerLogic : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("Enemy collision enter");
+            //Debug.Log("Enemy collision enter");
             enemies.Add(collision.gameObject);
             inAtackRange = true;
         }
@@ -84,7 +84,7 @@ public class FlamethrowerLogic : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("Enemy collision exit");
+            //Debug.Log("Enemy collision exit");
             enemies.Remove(collision.gameObject);
             if (enemies.Count == 0)
             {

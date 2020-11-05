@@ -12,6 +12,7 @@ public class ShotgunLogic : MonoBehaviour
     public bool inAtackRange;
 
     private WeaponModel model;
+    private Transform bulletsHolder;
     public List<GameObject> enemies = new List<GameObject>();
     public List<Transform> BulletSpownReference;
 
@@ -24,6 +25,7 @@ public class ShotgunLogic : MonoBehaviour
     {
         model = this.GetComponent<WeaponModel>();
         weaponHeadAnimationSpeed = .25f;
+        bulletsHolder = GameObject.FindGameObjectWithTag("BulletGroup").transform;
     }
 
     void Update()
@@ -46,7 +48,7 @@ public class ShotgunLogic : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("Enemy collision enter");
+            //Debug.Log("Enemy collision enter");
             enemies.Add(collision.gameObject);
             inAtackRange = true;
         }
@@ -56,7 +58,7 @@ public class ShotgunLogic : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("Enemy collision exit");
+            //Debug.Log("Enemy collision exit");
             enemies.Remove(collision.gameObject);
             if (enemies.Count == 0)
             {
@@ -89,7 +91,7 @@ public class ShotgunLogic : MonoBehaviour
             bulletRespownTimer = 0;
             foreach (var item in BulletSpownReference)
             {
-                var bullet = Instantiate(Bullet);
+                var bullet = Instantiate(Bullet, bulletsHolder);
                 bullet.transform.position = item.position + new Vector3(0, 0, 0);
                 bullet.transform.eulerAngles = item.eulerAngles;
                 model.RemoveBullet(1);

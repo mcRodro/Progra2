@@ -60,6 +60,7 @@ public class PlataformLogic : MonoBehaviour
         if (ItemManager.instance.activeItem != null && !item)
         {
             var tempItem = ItemManager.instance.activeItem.gameObject;
+            var uiData = this.gameObject.GetComponent<PlataformUIData>();
             Debug.Log($"Weapon Id: {tempItem.GetComponent<ItemModel>().Id}, name: {tempItem.GetComponent<ItemModel>().Name}");
 
             if (isWeaponBase && tempItem.GetComponent<ItemModel>().IsWeapon)
@@ -67,10 +68,9 @@ public class PlataformLogic : MonoBehaviour
                 item = Instantiate(prefabs[tempItem.GetComponent<ItemModel>().Id - 1], itemsHolder);
                 item.transform.position = this.transform.position;
                 item.transform.eulerAngles = this.transform.eulerAngles;
-                var uiData = this.gameObject.GetComponent<PlataformUIData>();
                 item.AddComponent<WeaponModel>().Constructor(
                     tempItem.GetComponent<ItemModel>().Id, 
-                    tempItem.GetComponent<ItemModel>().Name,  
+                    tempItem.GetComponent<ItemModel>().Name,
                     uiData,
                     prefabExplotion
                     );
@@ -81,7 +81,12 @@ public class PlataformLogic : MonoBehaviour
                 item = Instantiate(prefabs[tempItem.GetComponent<ItemModel>().Id - 1], itemsHolder);
                 item.transform.position = new Vector3(this.transform.position.x, -0.25f, this.transform.position.z);
                 item.transform.eulerAngles = this.transform.eulerAngles;
-                item.AddComponent<DefenseModel>().Constructor(tempItem.GetComponent<ItemModel>().Id, tempItem.GetComponent<ItemModel>().Name);
+                item.AddComponent<DefenseModel>();
+                item.GetComponent<DefenseModel>().Constructor(
+                    tempItem.GetComponent<ItemModel>().Id, 
+                    tempItem.GetComponent<ItemModel>().Name,
+                    uiData,
+                    prefabExplotion);
                 ItemManager.instance.DeleteActiveItem();
             }
         }
