@@ -9,7 +9,7 @@ public class PlataformUIData : MonoBehaviour
     public Image lifeBar;
     public Image bulletsBar;
 
-    void Start()
+    void Awake()
     {
         SetViewActive(false);
     }

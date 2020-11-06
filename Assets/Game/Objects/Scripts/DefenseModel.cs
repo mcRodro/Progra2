@@ -17,8 +17,9 @@ public class DefenseModel : MonoBehaviour
     public void ConstructorMainBase()
     {
         this.uiData = this.GetComponent<PlataformUIData>();
+
         SetLife(BASE_MAX_LIFE);
-        uiData.SetViewActive(true);
+        this.uiData.SetViewActive(true);
     }
 
     public void Constructor(int id, string name, PlataformUIData uiData, GameObject prefabExplotion)
@@ -30,11 +31,16 @@ public class DefenseModel : MonoBehaviour
         this.uiData = uiData;
 
         SetLife(MAX_LIFE);
-        uiData.SetViewActive(true);
+        this.uiData.SetViewActive(true);
     }
 
     private void Update()
     {
+        if (!this.uiData.isActiveAndEnabled)
+        {
+            this.uiData.SetViewActive(true);
+        }
+
         if (Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             TakeDamage(50);

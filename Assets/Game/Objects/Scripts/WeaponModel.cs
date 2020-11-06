@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class WeaponModel : MonoBehaviour
 {
-    private const int MAX_TURRET_LIFE = 300;
-    private const int MAX_SHOTGUN_LIFE = 750;
-    private const int MAX_FLAMETHROWER_LIFE = 600;
+    private const int MAX_TURRET_LIFE = 700;
+    private const int MAX_SHOTGUN_LIFE = 1000;
+    private const int MAX_FLAMETHROWER_LIFE = 850;
 
     private const int MAX_TURRET_BULLETS = 200;
     private const int MAX_SHOTGUN_BULLETS = 150;

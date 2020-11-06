@@ -20,10 +20,15 @@ public class DefenseLogic : MonoBehaviour
     {
         if (enemies.Count != 0)
         {
-            var damage = 0.2f * enemies.Count;
-            model.TakeDamage(damage);
-
             CheckEnemyList();
+
+            //var damage = 0.2f * enemies.Count;
+            var damage = 0;
+            foreach (var enemy in enemies)
+            {
+                damage += (int)enemy.GetComponent<EnemyModel>().Damage;
+            }
+            model.TakeDamage(damage);
         }
     }
 
@@ -32,6 +37,7 @@ public class DefenseLogic : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             enemies.Add(collision.gameObject);
+            collision.gameObject.GetComponent<EnemyLogic>().ChangeSpeedToNormal(false);
         }
     }
 
@@ -40,6 +46,7 @@ public class DefenseLogic : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             enemies.Remove(collision.gameObject);
+            collision.gameObject.GetComponent<EnemyLogic>().ChangeSpeedToNormal(true);
         }
     }
 

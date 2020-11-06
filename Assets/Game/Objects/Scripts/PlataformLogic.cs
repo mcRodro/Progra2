@@ -101,7 +101,7 @@ public class PlataformLogic : MonoBehaviour
             switch (powerup.GetComponent<PowerUpModel>().Id) 
             {
                 case (int)PowerUpManager.PowerUpType.BulletBox:
-                    item.GetComponent<WeaponModel>().AddBullet(AddBulletsByWeaponId());
+                    item.GetComponent<WeaponModel>().AddBullet(powerup.GetComponent<PowerUpModel>().Value);
                     break;
                 case (int)PowerUpManager.PowerUpType.RepairKit:
                     item.GetComponent<WeaponModel>().AddLife(powerup.GetComponent<PowerUpModel>().Value);
@@ -116,17 +116,5 @@ public class PlataformLogic : MonoBehaviour
 
             PowerUpManager.instance.DeleteActivePowerUp();
         }
-    }
-
-    private int AddBulletsByWeaponId()
-    {
-        switch (item.GetComponent<WeaponModel>().Id)
-        {
-            case 1: return 100;
-            case 2: return 150;
-            case 3: return 300;
-        }
-
-        return 0;
     }
 }

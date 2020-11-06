@@ -40,7 +40,12 @@ public class TorretLogic : MonoBehaviour
 
         if (enemies.Count != 0)
         {
-            var damage = 0.1f * enemies.Count;
+            //var damage = 0.1f * enemies.Count;
+            var damage = 0;
+            foreach (var enemy in enemies)
+            {
+                damage += (int)enemy.GetComponent<EnemyModel>().Damage;
+            }
             model.TakeDamage(damage);
         }
     }
