@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class EnemySpowner : MonoBehaviour
 {
+    const int FIRST_SPOWN_TIME = 2;
+    const int WAVE_TIME_LAPSE = 20;
+
     public List<GameObject> PrifabEnemies;
     public List<Transform> SpownLocations;
+    private List<int> StarterNodes;
     public Transform EnemyGroup;
 
     public int Stage { get; set; }
@@ -14,57 +18,66 @@ public class EnemySpowner : MonoBehaviour
     private float normalEnemyDamage = 0.5f;
     private float eliteEnemyDamage = 2;
     public float spownTimer;
+
+    private float waveTimer;
+    private bool activeWave;
     
     void Start()
     {
         spownTimer = 0;
-        Stage = 1;
+        Stage = 3;
         EnemyCount = 5;
+
+        StarterNodes = new List<int> {1, 17, 23, 10};
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (EnemyCount > 0)
+        if (activeWave)
         {
-            switch (Stage)
+            if (EnemyCount > 0)
             {
-                case 1: Stage1Logic(); break;
-                case 2: Stage2Logic(); break;
-                case 3: Stage3Logic(); break;
+                switch (Stage)
+                {
+                    case 1: Stage1Logic(); break;
+                    case 2: Stage2Logic(); break;
+                    case 3: Stage3Logic(); break;
+                }
             }
+            else
+            {
+                activeWave = false;
+                waveTimer = 0;
+            }
+        }
+        else
+        {
+            WaveTimerControl();
         }
     }
 
     private void Stage1Logic()
     {
-        // 2 spown origins (index 0 y 2)
-        // spown 5 enemigos por origen cada medio seg
-        int[] originIndexes = { 0, 2};
+        int[] originIndexes = { 0, 2 };
         StageSpown(originIndexes);
     }
     
     private void Stage2Logic()
     {
-        // 3 spown origins (index 0, 3 y 2)
-        // spown 10 enemigos por origen cada medio seg
-        // spwon 3 elits
         int[] originIndexes = { 0, 2, 3 };
         StageSpown(originIndexes);
     }
 
     private void Stage3Logic()
     {
-        // 4 spown origins
-        // spown 15 enemigos por origen cada medio seg
-        // spwon 4 elits
         int[] originIndexes = { 0, 1, 2, 3 };
         StageSpown(originIndexes);
     }
 
     private void StageSpown(int[] indexes)
     {
-        if (spownTimer >= 2)
+        if (spownTimer >= FIRST_SPOWN_TIME)
         {
             spownTimer = 0;
             foreach (var index in indexes)
@@ -84,6 +97,7 @@ public class EnemySpowner : MonoBehaviour
         enemy.transform.position = this.SpownLocations[originIndex].position;
         enemy.AddComponent<EnemyModel>().Constructor(randomIndex, randomIndex == 1 ? "Goblin" : "Troll", randomIndex == 1 ? normalEnemyDamage : eliteEnemyDamage);
         enemy.tag = "Enemy";
+        enemy.GetComponent<EnemyLogic>().camino = this.GetComponent<EnemyManager>().AccionCalcularCamino(StarterNodes[originIndex]);
     }
 
     private int GetRandomSpownLocations()
@@ -102,6 +116,19 @@ public class EnemySpowner : MonoBehaviour
         else
         {
             return 2;
+        }
+    }
+
+    private void WaveTimerControl()
+    {
+        if (waveTimer >= WAVE_TIME_LAPSE)
+        {
+            EnemyCount = 5;
+            activeWave = true;
+        }
+        else
+        {
+            waveTimer += Time.deltaTime;
         }
     }
 }

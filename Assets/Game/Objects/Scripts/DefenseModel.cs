@@ -73,15 +73,12 @@ public class DefenseModel : MonoBehaviour
 
     private void DeathAction()
     {
-        if (Life <= 0)
-        {
-            uiData.SetViewActive(false);
-            //Debug.Log($"Id: {this.Id} -> Dead");
+        uiData.SetViewActive(false);
+        //Debug.Log($"Id: {this.Id} -> Dead");
 
-            var explotion = Instantiate(prefabExplotion);
-            explotion.transform.position = this.transform.position;
+        var explotion = Instantiate(prefabExplotion);
+        explotion.transform.position = this.transform.position;
 
-            Destroy(this.gameObject);
-        }
+        Destroy(this.gameObject);
     }
 }

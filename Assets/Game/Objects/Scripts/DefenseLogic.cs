@@ -60,4 +60,12 @@ public class DefenseLogic : MonoBehaviour
             }
         }
     }
+
+    void OnDestroy()
+    {
+        foreach (var enemy in enemies)
+        {
+            enemy.GetComponent<EnemyLogic>().ChangeSpeedToNormal(true);
+        }
+    }
 }
