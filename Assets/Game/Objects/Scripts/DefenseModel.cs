@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DefenseModel : MonoBehaviour
 {
-    private const int MAX_LIFE = 500;
-    private const int BASE_MAX_LIFE = 5000;
+    private const int MAX_LIFE = 2000;
+    private const int BASE_MAX_LIFE = 7500;
 
     public int Id;
     public string Name;

@@ -30,11 +30,12 @@ public class ShotgunLogic : MonoBehaviour
 
     void Update()
     {
+        CheckEnemyList();
+
         if (inAtackRange && model.HasBullets())
         {
             AtackAnimation();
             SpawnBullet();
-            CheckEnemyList();
         }
 
         if (enemies.Count != 0)
@@ -91,7 +92,7 @@ public class ShotgunLogic : MonoBehaviour
 
     private void SpawnBullet()
     {
-        if (bulletRespownTimer >= .5f)
+        if (bulletRespownTimer >= .25f)
         {
             bulletRespownTimer = 0;
             foreach (var item in BulletSpownReference)

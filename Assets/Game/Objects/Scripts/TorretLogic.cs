@@ -31,11 +31,12 @@ public class TorretLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckEnemyList();
+
         if (inAtackRange && model.HasBullets()) 
         {
             AtackAnimation();
             SpawnBullet();
-            CheckEnemyList();
         }
 
         if (enemies.Count != 0)

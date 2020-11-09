@@ -6,6 +6,7 @@ public class FlamethrowerLogic : MonoBehaviour
 {
     const float ANIMATION_LEFT_LIMIT = -70;
     const float ANIMATION_RIGHT_LIMIT = 70;
+    const float WEAOPON_DAMAGE = 0.7f;
 
     public GameObject weaponHead;
     public GameObject fireEmitter;
@@ -28,12 +29,13 @@ public class FlamethrowerLogic : MonoBehaviour
 
     void Update()
     {
+        CheckEnemyList();
+
         if (inAtackRange && model.HasBullets())
         {
             fireEmitter.SetActive(true);
             AtackAnimation();
             SpawnBullet();
-            CheckEnemyList();
         }
         else
         {
@@ -46,7 +48,11 @@ public class FlamethrowerLogic : MonoBehaviour
             var damage = 0;
             foreach (var enemy in enemies)
             {
-                damage += (int)enemy.GetComponent<EnemyModel>().Damage;
+                if (enemy)
+                {
+                    damage += (int)enemy.GetComponent<EnemyModel>().Damage;
+                    enemy.GetComponent<EnemyModel>().TakeDamage(WEAOPON_DAMAGE);
+                }
             }
             model.TakeDamage(damage);
         }
