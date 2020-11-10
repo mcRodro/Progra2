@@ -10,6 +10,7 @@ public class RankingModel : MonoBehaviour
     public Text Score;
     public Text Position;
 
+    public int Id { get; set; }
     public string NameValue { get; set; }
     public int StageValue { get; set; }
     public int ScoreValue { get; set; }

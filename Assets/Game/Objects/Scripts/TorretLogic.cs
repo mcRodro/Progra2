@@ -31,23 +31,26 @@ public class TorretLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckEnemyList();
-
-        if (inAtackRange && model.HasBullets()) 
+        if (!GameManager.instance.IsGameOver && !GameManager.instance.GamePause)
         {
-            AtackAnimation();
-            SpawnBullet();
-        }
+            CheckEnemyList();
 
-        if (enemies.Count != 0)
-        {
-            //var damage = 0.1f * enemies.Count;
-            var damage = 0;
-            foreach (var enemy in enemies)
+            if (inAtackRange && model.HasBullets())
             {
-                damage += (int)enemy.GetComponent<EnemyModel>().Damage;
+                AtackAnimation();
+                SpawnBullet();
             }
-            model.TakeDamage(damage);
+
+            if (enemies.Count != 0)
+            {
+                //var damage = 0.1f * enemies.Count;
+                var damage = 0;
+                foreach (var enemy in enemies)
+                {
+                    damage += (int)enemy.GetComponent<EnemyModel>().Damage;
+                }
+                model.TakeDamage(damage);
+            }
         }
     }
 

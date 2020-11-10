@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    void Start()
+    {
+        GlobalPlayerData.Instance.ResetData();    
+    }
+
     public void LoadLevel()
     {
         SceneManager.LoadScene("Level");

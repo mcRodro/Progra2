@@ -25,7 +25,7 @@ public class EnemySpowner : MonoBehaviour
     void Start()
     {
         spownTimer = 0;
-        Stage = 3;
+        Stage = GameManager.instance.CurrentStage;
         EnemyCount = 5;
 
         StarterNodes = new List<int> {1, 17, 23, 10};
@@ -34,7 +34,7 @@ public class EnemySpowner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (activeWave)
+        if (!GameManager.instance.IsGameOver && !GameManager.instance.GamePause && activeWave)
         {
             if (EnemyCount > 0)
             {
@@ -95,7 +95,11 @@ public class EnemySpowner : MonoBehaviour
         var enemy = Instantiate(PrifabEnemies[GetRandomWithProbability()-1], EnemyGroup);
 
         enemy.transform.position = this.SpownLocations[originIndex].position;
-        enemy.AddComponent<EnemyModel>().Constructor(randomIndex, randomIndex == 1 ? "Goblin" : "Troll", randomIndex == 1 ? normalEnemyDamage : eliteEnemyDamage);
+        enemy.AddComponent<EnemyModel>().Constructor(
+            randomIndex, 
+            randomIndex == 1 ? "Goblin" : "Troll", 
+            randomIndex == 1 ? normalEnemyDamage : eliteEnemyDamage,
+            randomIndex == 1 ? 25 : 100);
         enemy.tag = "Enemy";
         enemy.GetComponent<EnemyLogic>().camino = this.GetComponent<EnemyManager>().AccionCalcularCamino(StarterNodes[originIndex]);
     }

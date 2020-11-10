@@ -11,6 +11,7 @@ public class EnemyModel : MonoBehaviour
     public string Name { get; private set; }
     public float Life { get; private set; }
     public float Damage { get; private set; }
+    public int Score { get; private set; }
     public bool IsDead => this.Life <= 0 ? true : false;
 
     void Start()
@@ -24,13 +25,14 @@ public class EnemyModel : MonoBehaviour
 
     }
 
-    public void Constructor(int id, string name, float damage)
+    public void Constructor(int id, string name, float damage, int score)
     {
         this.Id = id;
         this.Name = name;
         this.gameObject.name = name;
         this.Life = id == 1 ? MAX_NORMAL_LIFE : id == 2 ? MAX_ELITE_LIFE : 0;
         this.Damage = damage;
+        this.Score = score;
     }
 
     public void TakeDamage(float damage)
@@ -44,6 +46,8 @@ public class EnemyModel : MonoBehaviour
 
     public void DeathAction()
     {
+        GlobalPlayerData.Instance.AddScore(this.Score);
+        GameManager.instance.AddEnemyKillToCount();
         Destroy(this.gameObject);
     }
 }

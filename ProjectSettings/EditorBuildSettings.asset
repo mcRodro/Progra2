@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Level.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
+    path: Assets/Scenes/CargaNombre.unity
+    guid: 8d03fe9e42bd933448c953f572286b0e
+  - enabled: 1
     path: Assets/Scenes/Ranking.unity
     guid: 9600ce531c648ba4db083035ac4b348d
   m_configObjects: {}

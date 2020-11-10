@@ -29,32 +29,35 @@ public class FlamethrowerLogic : MonoBehaviour
 
     void Update()
     {
-        CheckEnemyList();
+        if (!GameManager.instance.IsGameOver && !GameManager.instance.GamePause)
+        {
+            CheckEnemyList();
 
-        if (inAtackRange && model.HasBullets())
-        {
-            fireEmitter.SetActive(true);
-            AtackAnimation();
-            SpawnBullet();
-        }
-        else
-        {
-            fireEmitter.SetActive(false);
-        }
-
-        if (enemies.Count != 0)
-        {
-            //var damage = 0.1f * enemies.Count;
-            var damage = 0;
-            foreach (var enemy in enemies)
+            if (inAtackRange && model.HasBullets())
             {
-                if (enemy)
-                {
-                    damage += (int)enemy.GetComponent<EnemyModel>().Damage;
-                    enemy.GetComponent<EnemyModel>().TakeDamage(WEAOPON_DAMAGE);
-                }
+                fireEmitter.SetActive(true);
+                AtackAnimation();
+                SpawnBullet();
             }
-            model.TakeDamage(damage);
+            else
+            {
+                fireEmitter.SetActive(false);
+            }
+
+            if (enemies.Count != 0)
+            {
+                //var damage = 0.1f * enemies.Count;
+                var damage = 0;
+                foreach (var enemy in enemies)
+                {
+                    if (enemy)
+                    {
+                        damage += (int)enemy.GetComponent<EnemyModel>().Damage;
+                        enemy.GetComponent<EnemyModel>().TakeDamage(WEAOPON_DAMAGE);
+                    }
+                }
+                model.TakeDamage(damage);
+            }
         }
     }
 

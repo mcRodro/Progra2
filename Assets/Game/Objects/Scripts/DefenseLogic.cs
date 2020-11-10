@@ -18,17 +18,20 @@ public class DefenseLogic : MonoBehaviour
     
     void Update()
     {
-        if (enemies.Count != 0)
+        if (!GameManager.instance.IsGameOver && !GameManager.instance.GamePause)
         {
-            CheckEnemyList();
-
-            //var damage = 0.2f * enemies.Count;
-            var damage = 0;
-            foreach (var enemy in enemies)
+            if (enemies.Count != 0)
             {
-                damage += (int)enemy.GetComponent<EnemyModel>().Damage;
+                CheckEnemyList();
+
+                //var damage = 0.2f * enemies.Count;
+                var damage = 0;
+                foreach (var enemy in enemies)
+                {
+                    damage += (int)enemy.GetComponent<EnemyModel>().Damage;
+                }
+                model.TakeDamage(damage);
             }
-            model.TakeDamage(damage);
         }
     }
 
