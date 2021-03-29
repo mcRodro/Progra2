@@ -25,11 +25,19 @@ public class PowerUpManager : MonoBehaviour
     void Awake() {
         instance = this;  
         powerUps = new Stack();
-        powerUpActivePosition = new Vector3(-425, 250, -1);
+        powerUpActivePosition = new Vector3(-425, 265, -1);
 
         for (int i = 0; i < STACK_LIMIT; i++)
         {
-            stackPositions.Add(new Vector3(-550, stackPositions.Count == 0 ? -250 : stackPositions[i-1].y + STACK_POSITION_DIFERENCESS, -1));
+            stackPositions.Add(new Vector3(-565, stackPositions.Count == 0 ? -250 : stackPositions[i-1].y + STACK_POSITION_DIFERENCESS, -1));
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            UnityEditor.SceneManagement.EditorSceneManager.LoadScene("Menu");
         }
     }
 
